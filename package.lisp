@@ -1016,14 +1016,14 @@
 ;; // Even if error information is recorded in *status, this call discards all
 ;; // local resources associated with the session.  The session may not be used
 ;; // during or after this call (and the session drops its reference to the
-;;                                   // corresponding graph).
+;; // corresponding graph).
 ;; extern void TF_DeleteSession(TF_Session*, TF_Status* status);
 
 ;; // Run the graph associated with the session starting with the supplied inputs
 ;; // (inputs[0,ninputs-1] with corresponding values in input_values[0,ninputs-1]).
 ;; //
 ;; // Any NULL and non-NULL value combinations for (`run_options`,
-;;                                                  // `run_metadata`) are valid.
+;; // `run_metadata`) are valid.
 ;; //
 ;; //    - `run_options` may be NULL, in which case it will be ignored; or
 ;; //      non-NULL, in which case it must point to a `TF_Buffer` containing the
@@ -1034,7 +1034,7 @@
 ;; //      of a `RunMetadata` protocol buffer.
 ;; //
 ;; // The caller retains ownership of `input_values` (which can be deleted using
-;;                                                          // TF_DeleteTensor). The caller also retains ownership of `run_options` and/or
+;; // TF_DeleteTensor). The caller also retains ownership of `run_options` and/or
 ;; // `run_metadata` (when not NULL) and should manually call TF_DeleteBuffer on
 ;; // them.
 ;; //
@@ -1044,20 +1044,20 @@
 ;; //
 ;; // On failure, output_values[] contains NULLs.
 ;; extern void TF_SessionRun(TF_Session* session,
-;;                                       // RunOptions
-;;                                       const TF_Buffer* run_options,
-;;                                       // Input tensors
-;;                                       const TF_Output* inputs,
-;;                                       TF_Tensor* const* input_values, int ninputs,
-;;                                       // Output tensors
-;;                                       const TF_Output* outputs, TF_Tensor** output_values,
-;;                                       int noutputs,
-;;                                       // Target operations
-;;                                       const TF_Operation* const* target_opers, int ntargets,
-;;                                       // RunMetadata
-;;                                       TF_Buffer* run_metadata,
-;;                                       // Output status
-;;                                       TF_Status*);
+;;                           // RunOptions
+;;                           const TF_Buffer* run_options,
+;;                           // Input tensors
+;;                           const TF_Output* inputs,
+;;                           TF_Tensor* const* input_values, int ninputs,
+;;                           // Output tensors
+;;                           const TF_Output* outputs, TF_Tensor** output_values,
+;;                           int noutputs,
+;;                           // Target operations
+;;                           const TF_Operation* const* target_opers, int ntargets,
+;;                           // RunMetadata
+;;                           TF_Buffer* run_metadata,
+;;                           // Output status
+;;                           TF_Status*);
 
 ;; // Set up the graph with the intended feeds (inputs) and fetches (outputs) for a
 ;; // sequence of partial run calls.
@@ -1086,17 +1086,17 @@
 ;; // execution state is uniquely identified by the handle.
 ;; // NOTE: This is EXPERIMENTAL and subject to change.
 ;; extern void TF_SessionPRun(TF_Session*, const char* handle,
-;;                                         // Input tensors
-;;                                         const TF_Output* inputs,
-;;                                         TF_Tensor* const* input_values, int ninputs,
-;;                                         // Output tensors
-;;                                         const TF_Output* outputs, TF_Tensor** output_values,
-;;                                         int noutputs,
-;;                                         // Target operations
-;;                                         const TF_Operation* const* target_opers,
-;;                                         int ntargets,
-;;                                         // Output status
-;;                                         TF_Status*);
+;;                            // Input tensors
+;;                            const TF_Output* inputs,
+;;                            TF_Tensor* const* input_values, int ninputs,
+;;                            // Output tensors
+;;                            const TF_Output* outputs, TF_Tensor** output_values,
+;;                            int noutputs,
+;;                            // Target operations
+;;                            const TF_Operation* const* target_opers,
+;;                            int ntargets,
+;;                            // Output status
+;;                            TF_Status*);
 
 ;; // Deletes a handle allocated by TF_SessionPRunSetup.
 ;; // Once called, no more calls to TF_SessionPRun should be made.
@@ -1110,38 +1110,38 @@
 ;; typedef struct TF_DeprecatedSession TF_DeprecatedSession;
 
 ;; extern TF_DeprecatedSession* TF_NewDeprecatedSession(const TF_SessionOptions*,
-;;                                                            TF_Status* status);
+;;                                                      TF_Status* status);
 ;; extern void TF_CloseDeprecatedSession(TF_DeprecatedSession*, TF_Status* status);
 ;; extern void TF_DeleteDeprecatedSession(TF_DeprecatedSession*,
 ;;                                        TF_Status* status);
 ;; extern void TF_Reset(const TF_SessionOptions* opt, const char** containers,
-;;                            int ncontainers, TF_Status* status);
+;;                      int ncontainers, TF_Status* status);
 ;; // Treat the bytes proto[0,proto_len-1] as a serialized GraphDef and
 ;; // add the nodes in that GraphDef to the graph for the session.
 ;; //
 ;; // Prefer use of TF_Session and TF_GraphImportGraphDef over this.
 ;; extern void TF_ExtendGraph(TF_DeprecatedSession*, const void* proto,
-;;                                                   size_t proto_len, TF_Status*);
+;;                            size_t proto_len, TF_Status*);
 
 ;; // See TF_SessionRun() above.
 ;; extern void TF_Run(TF_DeprecatedSession*, const TF_Buffer* run_options,
-;;                                           const char** input_names, TF_Tensor** inputs, int ninputs,
-;;                                           const char** output_names, TF_Tensor** outputs, int noutputs,
-;;                                           const char** target_oper_names, int ntargets,
-;;                                           TF_Buffer* run_metadata, TF_Status*);
+;;                    const char** input_names, TF_Tensor** inputs, int ninputs,
+;;                    const char** output_names, TF_Tensor** outputs, int noutputs,
+;;                    const char** target_oper_names, int ntargets,
+;;                    TF_Buffer* run_metadata, TF_Status*);
 
 ;; // See TF_SessionPRunSetup() above.
 ;; extern void TF_PRunSetup(TF_DeprecatedSession*, const char** input_names,
-;;                                                 int ninputs, const char** output_names, int noutputs,
-;;                                                 const char** target_oper_names, int ntargets,
-;;                                                 const char** handle, TF_Status*);
+;;                          int ninputs, const char** output_names, int noutputs,
+;;                          const char** target_oper_names, int ntargets,
+;;                          const char** handle, TF_Status*);
 
 ;; // See TF_SessionPRun above.
 ;; extern void TF_PRun(TF_DeprecatedSession*, const char* handle,
-;;                                            const char** input_names, TF_Tensor** inputs, int ninputs,
-;;                                            const char** output_names, TF_Tensor** outputs,
-;;                                            int noutputs, const char** target_oper_names, int ntargets,
-;;                                            TF_Status*);
+;;                     const char** input_names, TF_Tensor** inputs, int ninputs,
+;;                     const char** output_names, TF_Tensor** outputs,
+;;                     int noutputs, const char** target_oper_names, int ntargets,
+;;                     TF_Status*);
 
 ;; // --------------------------------------------------------------------------
 ;; // Load plugins containing custom ops and kernels
@@ -1161,7 +1161,7 @@
 ;; //
 ;; // On failure, place an error status in status and return NULL.
 ;; extern TF_Library* TF_LoadLibrary(const char* library_filename,
-;;                                         TF_Status* status);
+;;                                   TF_Status* status);
 
 ;; // Get the OpList of OpDefs defined in the library pointed by lib_handle.
 ;; //
