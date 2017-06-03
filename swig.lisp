@@ -8,7 +8,7 @@
 ;;;SWIG wrapper code starts here
 
 (cl:defmacro defanonenum (cl:&body enums)
-   "Converts anonymous enums to defconstants."
+  "Converts anonymous enums to defconstants."
   `(cl:progn ,@(cl:loop for value in enums
                         for index = 0 then (cl:1+ index)
                         when (cl:listp value) do (cl:setf index (cl:second value)
@@ -82,23 +82,23 @@
   (dt TF_DataType))
 
 (cffi:defcenum TF_Code
-	(:TF_OK #.0)
-	(:TF_CANCELLED #.1)
-	(:TF_UNKNOWN #.2)
-	(:TF_INVALID_ARGUMENT #.3)
-	(:TF_DEADLINE_EXCEEDED #.4)
-	(:TF_NOT_FOUND #.5)
-	(:TF_ALREADY_EXISTS #.6)
-	(:TF_PERMISSION_DENIED #.7)
-	(:TF_UNAUTHENTICATED #.16)
-	(:TF_RESOURCE_EXHAUSTED #.8)
-	(:TF_FAILED_PRECONDITION #.9)
-	(:TF_ABORTED #.10)
-	(:TF_OUT_OF_RANGE #.11)
-	(:TF_UNIMPLEMENTED #.12)
-	(:TF_INTERNAL #.13)
-	(:TF_UNAVAILABLE #.14)
-	(:TF_DATA_LOSS #.15))
+  (:TF_OK #.0)
+  (:TF_CANCELLED #.1)
+  (:TF_UNKNOWN #.2)
+  (:TF_INVALID_ARGUMENT #.3)
+  (:TF_DEADLINE_EXCEEDED #.4)
+  (:TF_NOT_FOUND #.5)
+  (:TF_ALREADY_EXISTS #.6)
+  (:TF_PERMISSION_DENIED #.7)
+  (:TF_UNAUTHENTICATED #.16)
+  (:TF_RESOURCE_EXHAUSTED #.8)
+  (:TF_FAILED_PRECONDITION #.9)
+  (:TF_ABORTED #.10)
+  (:TF_OUT_OF_RANGE #.11)
+  (:TF_UNIMPLEMENTED #.12)
+  (:TF_INTERNAL #.13)
+  (:TF_UNAVAILABLE #.14)
+  (:TF_DATA_LOSS #.15))
 
 (cffi:defcfun ("TF_NewStatus" TF_NewStatus) :pointer)
 
@@ -117,9 +117,9 @@
   (s :pointer))
 
 (cffi:defcstruct TF_Buffer
-	(data :pointer)
-	(length :pointer)
-	(data_deallocator :pointer))
+  (data :pointer)
+  (length :pointer)
+  (data_deallocator :pointer))
 
 (cffi:defcfun ("TF_NewBufferFromString" TF_NewBufferFromString) :pointer
   (proto :pointer)
@@ -205,12 +205,12 @@
   (arg0 :pointer))
 
 (cffi:defcstruct TF_Input
-	(oper :pointer)
-	(index :int))
+  (oper :pointer)
+  (index :int))
 
 (cffi:defcstruct TF_Output
-	(oper :pointer)
-	(index :int))
+  (oper :pointer)
+  (index :int))
 
 (cffi:defcfun ("TF_GraphSetTensorShape" TF_GraphSetTensorShape) :void
   (graph :pointer)
@@ -425,21 +425,21 @@
   (max_control_outputs :int))
 
 (cffi:defcenum TF_AttrType
-	(:TF_ATTR_STRING #.0)
-	(:TF_ATTR_INT #.1)
-	(:TF_ATTR_FLOAT #.2)
-	(:TF_ATTR_BOOL #.3)
-	(:TF_ATTR_TYPE #.4)
-	(:TF_ATTR_SHAPE #.5)
-	(:TF_ATTR_TENSOR #.6)
-	(:TF_ATTR_PLACEHOLDER #.7)
-	(:TF_ATTR_FUNC #.8))
+  (:TF_ATTR_STRING #.0)
+  (:TF_ATTR_INT #.1)
+  (:TF_ATTR_FLOAT #.2)
+  (:TF_ATTR_BOOL #.3)
+  (:TF_ATTR_TYPE #.4)
+  (:TF_ATTR_SHAPE #.5)
+  (:TF_ATTR_TENSOR #.6)
+  (:TF_ATTR_PLACEHOLDER #.7)
+  (:TF_ATTR_FUNC #.8))
 
 (cffi:defcstruct TF_AttrMetadata
-	(is_list :unsigned-char)
-	(list_size :pointer)
-	(type TF_AttrType)
-	(total_size :pointer))
+  (is_list :unsigned-char)
+  (list_size :pointer)
+  (type TF_AttrType)
+  (total_size :pointer))
 
 (cffi:defcfun ("TF_OperationGetAttrMetadata" TF_OperationGetAttrMetadata) TF_AttrMetadata
   (oper :pointer)
@@ -629,14 +629,14 @@
   (status :pointer))
 
 (cffi:defcstruct TF_WhileParams
-	(ninputs :int)
-	(cond_graph :pointer)
-	(cond_inputs :pointer)
-	(cond_output TF_Output)
-	(body_graph :pointer)
-	(body_inputs :pointer)
-	(body_outputs :pointer)
-	(name :string))
+  (ninputs :int)
+  (cond_graph :pointer)
+  (cond_inputs :pointer)
+  (cond_output TF_Output)
+  (body_graph :pointer)
+  (body_inputs :pointer)
+  (body_outputs :pointer)
+  (name :string))
 
 (cffi:defcfun ("TF_NewWhile" TF_NewWhile) TF_WhileParams
   (g :pointer)
