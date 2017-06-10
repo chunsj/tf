@@ -7,4 +7,5 @@
   :description "common lisp binding of tensorflow c api"
   :long-description "common lisp binding of tensorflow c api"
   :depends-on ("cffi")
-  :components ((:file "swig")))
+  :components ((:file "swig")
+               (:file "tf")))
