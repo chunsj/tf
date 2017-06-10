@@ -4,6 +4,19 @@
 ;;; Do not make changes to this file unless you know what you are doing--modify
 ;;; the SWIG interface file instead.
 
+(cl:defpackage :tf
+  (:use #:common-lisp
+        #:cffi))
+
+(in-package :tf)
+
+(defparameter *tensorflow-lib* "/usr/local/lib/libtensorflow.dylib")
+(defvar *tensorflow-loaded* nil)
+
+(unless *tensorflow-loaded*
+  (progn
+    (cffi:load-foreign-library *tensorflow-lib*)
+    (setf *tensorflow-loaded* T)))
 
 ;;;SWIG wrapper code starts here
 
