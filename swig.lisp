@@ -69,49 +69,49 @@
 (cffi:defcfun ("TF_Version" TF_Version) :string)
 
 (cffi:defcenum TF_DataType
-  (:TF_FLOAT #.1)
-  (:TF_DOUBLE #.2)
-  (:TF_INT32 #.3)
-  (:TF_UINT8 #.4)
-  (:TF_INT16 #.5)
-  (:TF_INT8 #.6)
-  (:TF_STRING #.7)
-  (:TF_COMPLEX64 #.8)
-  (:TF_COMPLEX #.8)
-  (:TF_INT64 #.9)
-  (:TF_BOOL #.10)
-  (:TF_QINT8 #.11)
-  (:TF_QUINT8 #.12)
-  (:TF_QINT32 #.13)
-  (:TF_BFLOAT16 #.14)
-  (:TF_QINT16 #.15)
-  (:TF_QUINT16 #.16)
-  (:TF_UINT16 #.17)
-  (:TF_COMPLEX128 #.18)
-  (:TF_HALF #.19)
-  (:TF_RESOURCE #.20))
+	(:TF_FLOAT #.1)
+	(:TF_DOUBLE #.2)
+	(:TF_INT32 #.3)
+	(:TF_UINT8 #.4)
+	(:TF_INT16 #.5)
+	(:TF_INT8 #.6)
+	(:TF_STRING #.7)
+	(:TF_COMPLEX64 #.8)
+	(:TF_COMPLEX #.8)
+	(:TF_INT64 #.9)
+	(:TF_BOOL #.10)
+	(:TF_QINT8 #.11)
+	(:TF_QUINT8 #.12)
+	(:TF_QINT32 #.13)
+	(:TF_BFLOAT16 #.14)
+	(:TF_QINT16 #.15)
+	(:TF_QUINT16 #.16)
+	(:TF_UINT16 #.17)
+	(:TF_COMPLEX128 #.18)
+	(:TF_HALF #.19)
+	(:TF_RESOURCE #.20))
 
-(cffi:defcfun ("TF_DataTypeSize" TF_DataTypeSize) :pointer
+(cffi:defcfun ("TF_DataTypeSize" TF_DataTypeSize) :unsigned-long
   (dt TF_DataType))
 
 (cffi:defcenum TF_Code
-  (:TF_OK #.0)
-  (:TF_CANCELLED #.1)
-  (:TF_UNKNOWN #.2)
-  (:TF_INVALID_ARGUMENT #.3)
-  (:TF_DEADLINE_EXCEEDED #.4)
-  (:TF_NOT_FOUND #.5)
-  (:TF_ALREADY_EXISTS #.6)
-  (:TF_PERMISSION_DENIED #.7)
-  (:TF_UNAUTHENTICATED #.16)
-  (:TF_RESOURCE_EXHAUSTED #.8)
-  (:TF_FAILED_PRECONDITION #.9)
-  (:TF_ABORTED #.10)
-  (:TF_OUT_OF_RANGE #.11)
-  (:TF_UNIMPLEMENTED #.12)
-  (:TF_INTERNAL #.13)
-  (:TF_UNAVAILABLE #.14)
-  (:TF_DATA_LOSS #.15))
+	(:TF_OK #.0)
+	(:TF_CANCELLED #.1)
+	(:TF_UNKNOWN #.2)
+	(:TF_INVALID_ARGUMENT #.3)
+	(:TF_DEADLINE_EXCEEDED #.4)
+	(:TF_NOT_FOUND #.5)
+	(:TF_ALREADY_EXISTS #.6)
+	(:TF_PERMISSION_DENIED #.7)
+	(:TF_UNAUTHENTICATED #.16)
+	(:TF_RESOURCE_EXHAUSTED #.8)
+	(:TF_FAILED_PRECONDITION #.9)
+	(:TF_ABORTED #.10)
+	(:TF_OUT_OF_RANGE #.11)
+	(:TF_UNIMPLEMENTED #.12)
+	(:TF_INTERNAL #.13)
+	(:TF_UNAVAILABLE #.14)
+	(:TF_DATA_LOSS #.15))
 
 (cffi:defcfun ("TF_NewStatus" TF_NewStatus) :pointer)
 
@@ -130,13 +130,13 @@
   (s :pointer))
 
 (cffi:defcstruct TF_Buffer
-  (data :pointer)
-  (length :pointer)
-  (data_deallocator :pointer))
+	(data :pointer)
+	(length :unsigned-long)
+	(data_deallocator :pointer))
 
 (cffi:defcfun ("TF_NewBufferFromString" TF_NewBufferFromString) :pointer
   (proto :pointer)
-  (proto_len :pointer))
+  (proto_len :unsigned-long))
 
 (cffi:defcfun ("TF_NewBuffer" TF_NewBuffer) :pointer)
 
@@ -151,7 +151,7 @@
   (dims :pointer)
   (num_dims :int)
   (data :pointer)
-  (len :pointer)
+  (len :unsigned-long)
   (deallocator :pointer)
   (deallocator_arg :pointer))
 
@@ -159,7 +159,10 @@
   (arg0 TF_DataType)
   (dims :pointer)
   (num_dims :int)
-  (len :pointer))
+  (len :unsigned-long))
+
+(cffi:defcfun ("TF_TensorMaybeMove" TF_TensorMaybeMove) :pointer
+  (tensor :pointer))
 
 (cffi:defcfun ("TF_DeleteTensor" TF_DeleteTensor) :void
   (arg0 :pointer))
@@ -170,32 +173,32 @@
 (cffi:defcfun ("TF_NumDims" TF_NumDims) :int
   (arg0 :pointer))
 
-(cffi:defcfun ("TF_Dim" TF_Dim) :pointer
+(cffi:defcfun ("TF_Dim" TF_Dim) :long
   (tensor :pointer)
   (dim_index :int))
 
-(cffi:defcfun ("TF_TensorByteSize" TF_TensorByteSize) :pointer
+(cffi:defcfun ("TF_TensorByteSize" TF_TensorByteSize) :unsigned-long
   (arg0 :pointer))
 
 (cffi:defcfun ("TF_TensorData" TF_TensorData) :pointer
   (arg0 :pointer))
 
-(cffi:defcfun ("TF_StringEncode" TF_StringEncode) :pointer
+(cffi:defcfun ("TF_StringEncode" TF_StringEncode) :unsigned-long
   (src :string)
-  (src_len :pointer)
+  (src_len :unsigned-long)
   (dst :string)
-  (dst_len :pointer)
+  (dst_len :unsigned-long)
   (status :pointer))
 
-(cffi:defcfun ("TF_StringDecode" TF_StringDecode) :pointer
+(cffi:defcfun ("TF_StringDecode" TF_StringDecode) :unsigned-long
   (src :string)
-  (src_len :pointer)
+  (src_len :unsigned-long)
   (dst :pointer)
   (dst_len :pointer)
   (status :pointer))
 
-(cffi:defcfun ("TF_StringEncodedSize" TF_StringEncodedSize) :pointer
-  (len :pointer))
+(cffi:defcfun ("TF_StringEncodedSize" TF_StringEncodedSize) :unsigned-long
+  (len :unsigned-long))
 
 (cffi:defcfun ("TF_NewSessionOptions" TF_NewSessionOptions) :pointer)
 
@@ -206,7 +209,7 @@
 (cffi:defcfun ("TF_SetConfig" TF_SetConfig) :void
   (options :pointer)
   (proto :pointer)
-  (proto_len :pointer)
+  (proto_len :unsigned-long)
   (status :pointer))
 
 (cffi:defcfun ("TF_DeleteSessionOptions" TF_DeleteSessionOptions) :void
@@ -218,12 +221,12 @@
   (arg0 :pointer))
 
 (cffi:defcstruct TF_Input
-  (oper :pointer)
-  (index :int))
+	(oper :pointer)
+	(index :int))
 
 (cffi:defcstruct TF_Output
-  (oper :pointer)
-  (index :int))
+	(oper :pointer)
+	(index :int))
 
 (cffi:defcfun ("TF_GraphSetTensorShape" TF_GraphSetTensorShape) :void
   (graph :pointer)
@@ -274,7 +277,7 @@
   (desc :pointer)
   (attr_name :string)
   (value :pointer)
-  (length :pointer))
+  (length :unsigned-long))
 
 (cffi:defcfun ("TF_SetAttrStringList" TF_SetAttrStringList) :void
   (desc :pointer)
@@ -286,7 +289,7 @@
 (cffi:defcfun ("TF_SetAttrInt" TF_SetAttrInt) :void
   (desc :pointer)
   (attr_name :string)
-  (value :pointer))
+  (value :long))
 
 (cffi:defcfun ("TF_SetAttrIntList" TF_SetAttrIntList) :void
   (desc :pointer)
@@ -344,7 +347,7 @@
   (desc :pointer)
   (attr_name :string)
   (proto :pointer)
-  (proto_len :pointer)
+  (proto_len :unsigned-long)
   (status :pointer))
 
 (cffi:defcfun ("TF_SetAttrTensorShapeProtoList" TF_SetAttrTensorShapeProtoList) :void
@@ -372,7 +375,7 @@
   (desc :pointer)
   (attr_name :string)
   (proto :pointer)
-  (proto_len :pointer)
+  (proto_len :unsigned-long)
   (status :pointer))
 
 (cffi:defcfun ("TF_FinishOperation" TF_FinishOperation) :pointer
@@ -438,21 +441,21 @@
   (max_control_outputs :int))
 
 (cffi:defcenum TF_AttrType
-  (:TF_ATTR_STRING #.0)
-  (:TF_ATTR_INT #.1)
-  (:TF_ATTR_FLOAT #.2)
-  (:TF_ATTR_BOOL #.3)
-  (:TF_ATTR_TYPE #.4)
-  (:TF_ATTR_SHAPE #.5)
-  (:TF_ATTR_TENSOR #.6)
-  (:TF_ATTR_PLACEHOLDER #.7)
-  (:TF_ATTR_FUNC #.8))
+	(:TF_ATTR_STRING #.0)
+	(:TF_ATTR_INT #.1)
+	(:TF_ATTR_FLOAT #.2)
+	(:TF_ATTR_BOOL #.3)
+	(:TF_ATTR_TYPE #.4)
+	(:TF_ATTR_SHAPE #.5)
+	(:TF_ATTR_TENSOR #.6)
+	(:TF_ATTR_PLACEHOLDER #.7)
+	(:TF_ATTR_FUNC #.8))
 
 (cffi:defcstruct TF_AttrMetadata
-  (is_list :unsigned-char)
-  (list_size :pointer)
-  (type TF_AttrType)
-  (total_size :pointer))
+	(is_list :unsigned-char)
+	(list_size :long)
+	(type TF_AttrType)
+	(total_size :long))
 
 (cffi:defcfun ("TF_OperationGetAttrMetadata" TF_OperationGetAttrMetadata) TF_AttrMetadata
   (oper :pointer)
@@ -463,7 +466,7 @@
   (oper :pointer)
   (attr_name :string)
   (value :pointer)
-  (max_length :pointer)
+  (max_length :unsigned-long)
   (status :pointer))
 
 (cffi:defcfun ("TF_OperationGetAttrStringList" TF_OperationGetAttrStringList) :void
@@ -473,7 +476,7 @@
   (lengths :pointer)
   (max_values :int)
   (storage :pointer)
-  (storage_size :pointer)
+  (storage_size :unsigned-long)
   (status :pointer))
 
 (cffi:defcfun ("TF_OperationGetAttrInt" TF_OperationGetAttrInt) :void
@@ -605,7 +608,7 @@
   (src_index :int)
   (dst TF_Output))
 
-(cffi:defcfun ("TF_GraphImportGraphDefOptionsRemapControlDependency" TF_GraphImportGraphDefOptionsRemapControlDependency) :void
+(cffi:defcfun ("TF_ImportGraphDefOptionsRemapControlDependency" TF_ImportGraphDefOptionsRemapControlDependency) :void
   (opts :pointer)
   (src_name :string)
   (dst :pointer))
@@ -642,14 +645,14 @@
   (status :pointer))
 
 (cffi:defcstruct TF_WhileParams
-  (ninputs :int)
-  (cond_graph :pointer)
-  (cond_inputs :pointer)
-  (cond_output TF_Output)
-  (body_graph :pointer)
-  (body_inputs :pointer)
-  (body_outputs :pointer)
-  (name :string))
+	(ninputs :int)
+	(cond_graph :pointer)
+	(cond_inputs :pointer)
+	(cond_output TF_Output)
+	(body_graph :pointer)
+	(body_inputs :pointer)
+	(body_outputs :pointer)
+	(name :string))
 
 (cffi:defcfun ("TF_NewWhile" TF_NewWhile) TF_WhileParams
   (g :pointer)
@@ -664,6 +667,16 @@
 
 (cffi:defcfun ("TF_AbortWhile" TF_AbortWhile) :void
   (params :pointer))
+
+(cffi:defcfun ("TF_AddGradients" TF_AddGradients) :void
+  (g :pointer)
+  (y :pointer)
+  (ny :int)
+  (x :pointer)
+  (nx :int)
+  (dx :pointer)
+  (status :pointer)
+  (dy :pointer))
 
 (cffi:defcfun ("TF_NewSession" TF_NewSession) :pointer
   (graph :pointer)
@@ -750,7 +763,7 @@
 (cffi:defcfun ("TF_ExtendGraph" TF_ExtendGraph) :void
   (arg0 :pointer)
   (proto :pointer)
-  (proto_len :pointer)
+  (proto_len :unsigned-long)
   (arg3 :pointer))
 
 (cffi:defcfun ("TF_Run" TF_Run) :void
