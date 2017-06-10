@@ -1,1 +1,15 @@
-Common Lisp binding of Tensorflow C APIs.
+* Common Lisp binding of Tensorflow C APIs.
+
+* How to load
+  0. Build or download libtensorflow (so, dll, dylib appropriately)
+  1. link or clone this repo into quicklisp's local-projects
+  2. edit *tensorflow-lib* approprately
+  3. (ql:quickload :tf)
+
+* How to use
+  Nothing other than simple direct calling of swig generated cffi calls; if you
+  really want to test something, then
+
+  CL-USER> (tf::TF_Version)
+
+  wiil print tensorflow version. If not, you've wasted your time :-P
